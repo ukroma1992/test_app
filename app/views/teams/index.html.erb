@@ -22,12 +22,12 @@
                 <%= team.name %>
               </h4>
               <span aria-hidden="true" class="glyphicon glyphicon-user"></span>
-              <%= team.owner %>
+              <%= team.user %>
               <br/>
               <% # if it's the view for a tournament, show team registration time in this tournament %>
               <% # otherwise - team creation time %>
               <% if @tournament %>
-                <% participation = team.participations.where(tournament: @tournament).take %>
+                <% member = team.members.where(tournament: @tournament).take %>
                 <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
                 <%= datetime_formatter(participation.created_at) %>
               <% else %>
@@ -35,7 +35,7 @@
                 <%= datetime_formatter(team.created_at) %>
               <% end %>
               <br/>
-              <% if current_user_owns_team?(team) %>
+              <% if current_user_have_team?(team) %>
                 <div class="panel-buttons">
                   <%= link_to 'Удалить', team, method: :delete, data: { confirm: 'Вы уверены?' }, class: "btn btn-danger btn-xs" %>
                   <%= link_to 'Изменить', edit_team_path(team), class: "btn btn-default btn-xs" %>
