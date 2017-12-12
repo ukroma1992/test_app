@@ -1,0 +1,58 @@
+<h1>
+  <% if @tournament %>
+    <%= "Teams participating in #{@tournament.name}" %>
+  <% else %>
+    Команды
+  <% end %>
+</h1>
+<br/>
+<% if @teams.blank? %>
+  Сейчас нет команд!
+<% else %>
+  <% @teams.each do |team| %>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="media">
+            <div class="media-left media-middle">
+              <img alt="logo" class="media-object" height="100px" src="<%= team.logo.url %>" width="100px"/>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">
+                <%= team.name %>
+              </h4>
+              <span aria-hidden="true" class="glyphicon glyphicon-user"></span>
+              <%= team.owner %>
+              <br/>
+              <% # if it's the view for a tournament, show team registration time in this tournament %>
+              <% # otherwise - team creation time %>
+              <% if @tournament %>
+                <% participation = team.participations.where(tournament: @tournament).take %>
+                <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
+                <%= datetime_formatter(participation.created_at) %>
+              <% else %>
+                <span aria-hidden="true" class="glyphicon glyphicon-time"></span>
+                <%= datetime_formatter(team.created_at) %>
+              <% end %>
+              <br/>
+              <% if current_user_owns_team?(team) %>
+                <div class="panel-buttons">
+                  <%= link_to 'Удалить', team, method: :delete, data: { confirm: 'Вы уверены?' }, class: "btn btn-danger btn-xs" %>
+                  <%= link_to 'Изменить', edit_team_path(team), class: "btn btn-default btn-xs" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+<br/>
+<% if log_in? && !current_user.have_team? %>
+  <div class="col-md-12">
+    <div class="pull-right">
+      <%= link_to 'Создать свою команду', new_team_path, class: "btn btn-success" %>
+    </div>
+  </div>
+<% end %>

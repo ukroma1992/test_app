@@ -1,0 +1,13 @@
+<%= simple_form_for(@team) do |f| %>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.label :photo %>
+    <br/>
+    <img alt="photo" height="100px" src="<%= @team.photo.url %>" width="100px"/>
+    <%= f.file_field :photo %>
+  </div>
+  <div class="form-actions pull-right">
+    <%= f.button :submit %>
+  </div>
+<% end %>

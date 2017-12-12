@@ -1,0 +1,10 @@
+<h1>Турниры</h1>
+<br/>
+<% if @tournaments.blank? %>
+  Сейчас нет турниров!
+<% else %>
+  <% @tournaments.each do |tournament| %>
+    <%= render 'tournament', tournament: tournament %>
+  <% end %>
+<% end %>
+<br/>
