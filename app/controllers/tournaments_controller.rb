@@ -9,20 +9,12 @@ class TournamentsController < ApplicationController
 
   def register_team
     @tournament.teams << @team
-
-    respond_to do |format|
-      format.html { redirect_to tournaments_url, notice: 'Команда была успешно зарегистрирована.' }
-      format.js { render :replace_tournament }
-    end
+    redirect_to tournaments_path, notice: 'Команда была успешно зарегистрирована.'
   end
 
   def withdraw_team
     @tournament.teams.destroy(@team)
-
-    respond_to do |format|
-      format.html { redirect_to tournaments_url, notice: 'Команда была успешно отменена.' }
-      format.js { render :replace_tournament }
-    end
+    redirect_to tournaments_path, notice: 'Команда была успешно отменена.'
   end
 
   private

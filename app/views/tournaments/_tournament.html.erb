@@ -1,5 +1,5 @@
 <% tournament_teams = tournament.teams %>
-<div class="col-md-3" id="tournament-<%= tournament.id %>">
+<div class="col-md-4" id="tournament-<%= tournament.id %>">
   <div class="panel panel-default">
     <div class="panel-body">
       <h4 class="media-heading">
@@ -8,7 +8,7 @@
       <span aria-hidden="true" class="glyphicon glyphicon-user"></span>
       <% teams_number = tournament_teams.count %>
       <% if teams_number.zero? %>
-        Нет зарегестрированных команд
+        Нет зарегистрированных команд
       <% else %>
         <%= link_to "#{teams_number} #{'team'.pluralize(teams_number)} registered", teams_path(tournament_id: tournament.id) %>
       <% end %>
@@ -16,9 +16,9 @@
       <% if current_user_have_team? %>
         <div class="pull-right">
           <% if tournament_teams.include?(current_user.team) %>
-            <%= link_to 'Изьять', withdraw_team_tournament_path(tournament, team_id: current_user.team.id), method: :post, remote: true, data: { confirm: 'Вы уверены?' }, class: 'btn btn-danger btn-xs' %>
+            <%= link_to 'Выйти', withdraw_team_tournament_path(tournament, team_id: current_user.team.id), method: :post, data: { confirm: 'Вы уверены ?' }, class: 'btn btn-danger btn-xs' %>
           <% else %>
-            <%= link_to 'Зарегистрировать', register_team_tournament_path(tournament, team_id: current_user.team.id), method: :post, remote: true, class: 'btn btn-primary btn-xs' %>
+            <%= link_to 'Зарегистрироваться', register_team_tournament_path(tournament, team_id: current_user.team.id), method: :post, class: 'btn btn-primary btn-xs' %>
           <% end %>
         </div>
       <% end %>

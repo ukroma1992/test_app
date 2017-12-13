@@ -1,6 +1,6 @@
 <h1>
   <% if @tournament %>
-    <%= "Teams participating in #{@tournament.name}" %>
+    <%= "Команды участвуют в #{@tournament.name}" %>
   <% else %>
     Команды
   <% end %>
@@ -15,7 +15,7 @@
         <div class="panel-body">
           <div class="media">
             <div class="media-left media-middle">
-              <img alt="logo" class="media-object" height="100px" src="<%= team.logo.url %>" width="100px"/>
+              <img alt="photo" class="media-object" height="100px" src="<%= team.photo.url %>" width="100px"/>
             </div>
             <div class="media-body">
               <h4 class="media-heading">
